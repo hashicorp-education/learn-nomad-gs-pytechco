@@ -1,6 +1,11 @@
-- Run the redis-web job to set up the database and the web viewer app
+- Run the redis-web job to set up the database
 ```
-$ nomad job run pytechco-redis-web.hcl
+$ nomad job run pytechco-redis.hcl
+```
+
+- Run the web job to set up the frontend viewer
+```
+$ nomad job run pytechco-web.hcl
 ```
 
 - Run and dispatch the setup job with a value for `budget` to seed the database with values
