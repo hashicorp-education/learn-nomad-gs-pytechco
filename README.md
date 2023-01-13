@@ -1,6 +1,7 @@
 # PyTechCo Simulator
 
 ![pytechco simulator GIF](simulator.gif)
+
 A tech company simulator similar to [John Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in that it requires no interaction from the user.
 
 Once set up, employees come online to work on their tasks and log off once complete.
