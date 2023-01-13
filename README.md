@@ -30,10 +30,10 @@ $ docker build -f employee.Dockerfile -t ptc-employee .
 
 ### Viewer
 
-This image contains the code for viewing the results stored in the Redis container. See [viewer.py](viewer.py).
+This image contains the code for viewing the results stored in the Redis container via a webapp. See [viewer.py](viewer.py).
 
 ```
-$ docker build -f viewer.Dockerfile -t ptc-viewer .
+$ docker build -f webviewer.Dockerfile -t ptc-web .
 ```
 
 ## Run Containers
