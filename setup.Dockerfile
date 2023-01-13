@@ -2,9 +2,9 @@ FROM python:alpine
 
 WORKDIR /usr/src/app
 
-COPY employee.py .
+COPY setup.py .
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-ENTRYPOINT ["python", "./employee.py"]
+ENTRYPOINT ["python", "./setup.py"]

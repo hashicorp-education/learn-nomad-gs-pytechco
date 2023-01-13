@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+ 
+   <head>
+      <title>PyTechCo Simulator</title>
+      <style>
+        th, td {
+            padding: 10px;
+        }
+      </style>
+   </head>
+ 
+   <body>
+    <h1>Welcome to the PyTechCo Technology Company Simulator!</h1>
+    <h2>Company Stats</h2>
+      <div id="stats">
+        {{ stats }}
+      </div>
+      <h2>Online Employees</h2>
+      <div id="online_employees">
+        {{ online_employees }}
+      </div>
+   </body>
+ 
+   <script type="text/javascript">
+    function update() {
+        let stats_elements = document.getElementById("stats");
+        let online_employees_element = document.getElementById("online_employees");
+
+        fetch("/stats")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            stats_elements.innerHTML = data["stats"];
+        })
+
+        fetch("/employees_online")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            online_employees_element.innerHTML = data["online_employees"];
+        })
+    }
+
+    (function () {
+        update();
+        setInterval(function () {
+            update();
+        }, {{ refresh_interval }});
+    })();
+</script>
+
+</html>

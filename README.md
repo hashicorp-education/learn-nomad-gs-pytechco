@@ -1,5 +1,23 @@
 # PyTechCo Simulator
 
+## BUILD
+
+```
+docker build -f employee.Dockerfile -t ptc-employee . && \
+docker build -f webviewer.Dockerfile -t ptc-web . && \
+docker build -f setup.Dockerfile -t ptc-setup . && \
+docker image list | grep ptc
+```
+
+## DEPLOY
+
+```
+docker run -it -p 6379:6379 redis:7.0.7-alpine
+docker run -it --network=host ptc-setup
+python3 webviewer.py 
+docker run -it --network=host ptc-employee
+```
+
 ## Build Images
 
 ### Employee
