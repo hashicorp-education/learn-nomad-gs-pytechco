@@ -1,4 +1,4 @@
-job "pytechco-redis-web" {
+job "pytechco-redis" {
   datacenters = ["dc1"]
   type = "service"
 
