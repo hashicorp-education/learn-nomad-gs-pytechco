@@ -81,7 +81,7 @@ def stats():
                 </tr>
                 """
     output += "</table>"
-    if output == "<table></table>":
+    if output == "<table class='table table-hover'></table>":
         return {"stats": "DB hasn't been seeded yet."}
     else:
         return {"stats": output}
