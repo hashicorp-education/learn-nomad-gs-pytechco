@@ -78,6 +78,15 @@ Submit the webapp job. Then open the Nomad UI, navigate to the `pytechco-web` jo
 $ nomad job run pytechco-web.hcl
 ```
 
+Alternatively, get the URL by checking the allocation and status. If running on AWS or Azure, replace `grep -i ip-address` with `grep -i public-ipv4` and if running on GCP replace it with `grep -i external-ip`.
+
+```
+$ nomad node status -verbose \
+    $(nomad job allocs pytechco-web | grep -i running | awk '{print $2}') | \
+    grep -i ip-address | awk -F "=" '{print $2}' | xargs | \
+    awk '{print "http://"$1":5000"}'
+```
+
 Submit the setup job.
 ```
 $ nomad job run pytechco-setup.hcl

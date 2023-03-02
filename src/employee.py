@@ -7,15 +7,7 @@ import os
 import argparse
 import json
 
-# Employee type values: 
-# PRIMARY TASK, SECONDARY TASK, SALARY, WORKING TIME, MIN TASK TIME, MAX TASK TIME, SECONDARY TASK FINDING FACTOR
-# employee_types = {
-#     "education_engineer": ["tutorials","customer_happiness",5,12,2,4,4],
-#     "software_engineer": ["bugs_fixed","customer_happiness",7,15,3,6,6],
-#     "sales_engineer": ["money","customer_base",4,8,1,3,5],
-#     "customer_success_engineer": ["customer_happiness","money",3,18,1,5,10]
-# }
-
+# Employee type values
 employee_types = {
     "education_engineer": {
         "title": "Education Engineer",
@@ -75,11 +67,6 @@ redis_host = os.getenv('REDIS_HOST', default='localhost')
 redis_port = os.getenv('REDIS_PORT', default=6379)
 employee_id = os.getenv('PTC_EMPLOYEE_ID', default=time.time())
 
-# task_time_min = 1
-# task_time_max = 4
-# working_time = 10
-# secondary_task_finding_factor = 5
-
 start_time = time.time()
 primary_tasks_completed = 0
 secondary_tasks_completed = 0
@@ -106,16 +93,6 @@ def get_employee_online():
     employee_attributes.update({"id": employee_id})
     employee_attributes.update({"status": "online"})
     employee_count = int(r.get("employees").decode())
-    # global primary_task
-    # global secondary_task
-    # global salary
-    # primary_task = employee_attributes[0]
-    # secondary_task = employee_attributes[1]
-    # salary = employee_attributes[2]
-    # working_time = employee_attributes[3]
-    # task_time_min = employee_attributes[4]
-    # task_time_max = employee_attributes[5]
-    # secondary_task_finding_factor = employee_attributes[6]
     global time_to_complete_tasks
     time_to_complete_tasks = random.randint(employee_attributes.get("min_task_time"), employee_attributes.get("max_task_time"))
 
@@ -124,17 +101,12 @@ def get_employee_online():
         print(f"Sorry, it looks like you don't have the budget for me, a(n) {employee_attributes.get('title')}.")
         print("Your company stats: ")
         print("-------------------")
-        # for key in r.scan_iter("*"):
-        #     print(f"{key.decode(): <25} {r.get(key).decode()}")
         print(get_stats_from_db())
         sys.exit(0)
     
     try:
-        # print(employee_attributes)
         r.set("employees", employee_count + 1)
         set_employee_record_in_db()
-        # r.set(f"employee-{employee_attributes.get("id")}-attr", json.dumps(employee_attributes))
-        # r.set(f"employee-{employee_attributes.get("id")}-status", "online")
     except:
         print("Error registering employee")
     else:
@@ -162,7 +134,6 @@ def subtract_money(amount):
         return True
 
 def do_tasks():
-    # global primary_task   
     global employee_attributes
     secondary_task_finding_factor = employee_attributes.get("secondary_task_finding_factor")
     secondary_task_hit_number = random.randint(1, secondary_task_finding_factor)
@@ -183,8 +154,6 @@ def do_tasks():
         print("Error completing primary task")
 
 def take_employee_offline():
-    # global primary_task
-    # global secondary_task
     global employee_attributes
     primary_task = employee_attributes.get("primary_task")
     secondary_task = employee_attributes.get("secondary_task")
@@ -194,8 +163,6 @@ def take_employee_offline():
             r.set("employees", employee_count - 1)
             employee_attributes.update({"status": "offline"})
             set_employee_record_in_db()
-            # r.set(f"employee-{employee_attributes.get("id")}-attr", json.dumps(employee_attributes))
-            # r.set(f"employee-{employee_id}-status", "offline")
         except:
             print("Error taking employee offline")
         else:
