@@ -1,6 +1,6 @@
 # PyTechCo Simulator
 
-This is a companion repository for the [Getting Start with Nomad](https://github.com/hashicorp-education/learn-nomad-getting-started) collection. It contains the source code for the example application used in that collection.
+This is a companion repository for the [Get Started with Nomad](https://github.com/hashicorp-education/learn-nomad-getting-started) collection. It contains the source code for the example application used in that collection.
 
 ![pytechco simulator GIF](simulator.gif)
 
