@@ -1,5 +1,4 @@
 job "pytechco-redis" {
-  datacenters = ["dc1"]
   type = "service"
 
   group "ptc-redis" {
@@ -11,8 +10,8 @@ job "pytechco-redis" {
     }
 
     service {
-      name = "redis-svc"
-      port = "redis"
+      name     = "redis-svc"
+      port     = "redis"
       provider = "nomad"
     }
 

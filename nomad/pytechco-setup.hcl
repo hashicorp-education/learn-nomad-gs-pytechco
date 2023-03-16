@@ -1,10 +1,8 @@
 job "pytechco-setup" {
-  datacenters = ["dc1"]
-
   type = "batch"
 
-    parameterized {
-      meta_required = ["budget"]
+  parameterized {
+    meta_required = ["budget"]
   }
 
   group "ptc-setup" {
@@ -12,21 +10,21 @@ job "pytechco-setup" {
 
     task "ptc-setup-task" {
 
-        template {
-                data        = <<EOH
+      template {
+        data        = <<EOH
 {{ range nomadService "redis-svc" }}
 REDIS_HOST={{ .Address }}
 REDIS_PORT={{ .Port }}
 {{ end }}
 PTC_BUDGET={{ env "NOMAD_META_budget" }}
 EOH
-                destination = "local/env.txt"
-                env         = true
-            }
+        destination = "local/env.txt"
+        env         = true
+      }
       driver = "docker"
 
       config {
-        image = "arussohashi/ptc-setup:latest"
+        image = "ghcr.io/hashicorp-education/learn-nomad-getting-started/ptc-setup:1.0"
       }
     }
   }
