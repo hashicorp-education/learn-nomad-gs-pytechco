@@ -10,6 +10,9 @@ job "pytechco-setup" {
 
     task "ptc-setup-task" {
 
+      # Retrieves the .Address and .Port connection values for
+      # redis-svc with nomadService and saves them to env vars
+      # NOMAD_META_budget is read from the job's meta vars
       template {
         data        = <<EOH
 {{ range nomadService "redis-svc" }}

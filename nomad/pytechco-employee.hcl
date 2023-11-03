@@ -18,6 +18,9 @@ job "pytechco-employee" {
         mode     = "fail"
       }
 
+      # Retrieves the .Address and .Port connection values for
+      # redis-svc with nomadService and saves them to env vars
+      # NOMAD_SHORT_ALLOC_ID is read from the job's runtime vars
       template {
         data        = <<EOH
 {{ range nomadService "redis-svc" }}
